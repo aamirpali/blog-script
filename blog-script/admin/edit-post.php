@@ -1,9 +1,12 @@
 <?php
-session_start();
+require_once 'include/header.php';
 require_once '../config.php';
-include 'include/header.php';
-if (!isset($_SESSION['admin_username'])) {
-    // Redirect to the login page or perform other actions for unauthenticated users.
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Check if the user is not logged in, redirect to index.php
+
+if (!isset($_SESSION['user_id'])) {
     header('Location: index.php');
     exit();
 }
