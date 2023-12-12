@@ -1,8 +1,16 @@
 <?php
 require_once 'include/header.php';
-require_once '../config.php'; // Include your config file
+require_once '../config.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+
+// Check if the user is not logged in, redirect to index.php
+
+if (!isset($_SESSION['user_id'])) {
+    header('Location: index.php');
+    exit();
+}
+
 // Initialize variables to store form data
 $websiteName = '';
 $description = '';
@@ -33,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $recaptcha_secret_key = $_POST['recaptcha_secret_key'];
 
     // Update settings in the database
-   $sql = "UPDATE settings SET
+    $sql = "UPDATE settings SET
         website_name = '$websiteName',
         description = '$description',
         keywords = '$keywords',
@@ -46,7 +54,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         recaptcha_site_key = '$recaptcha_site_key',
         recaptcha_secret_key = '$recaptcha_secret_key'
         WHERE id = 1";
-
 
     if ($conn->query($sql) === TRUE) {
         $updateMessage = 'Settings updated successfully.';
