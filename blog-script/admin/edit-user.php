@@ -1,5 +1,15 @@
 <?php
+require_once 'include/header.php';
 require_once '../config.php';
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Check if the user is not logged in, redirect to index.php
+
+if (!isset($_SESSION['user_id'])) {
+    header('Location: index.php');
+    exit();
+}
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
