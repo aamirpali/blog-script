@@ -1,6 +1,15 @@
 <?php
-require_once('../config.php'); // Include your database configuration
-require_once('include/header.php'); // Include the header template
+require_once 'include/header.php';
+require_once '../config.php';
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Check if the user is not logged in, redirect to index.php
+
+if (!isset($_SESSION['user_id'])) {
+    header('Location: index.php');
+    exit();
+}
 
 // Initialize variables for form values and errors
 $logoError = $faviconError = "";
